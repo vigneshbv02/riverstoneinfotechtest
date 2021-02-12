@@ -12,6 +12,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: true,
+                user: null
             };
         case 'AUTH_ERROR':
         case 'LOGOUT':
@@ -23,6 +24,7 @@ export default function (state = initialState, action) {
                 user: null
             };
         case 'LOGIN_FAIL':
+        case 'REGISTER_FAIL':
             return {
                 initialState
             }
@@ -32,6 +34,8 @@ export default function (state = initialState, action) {
                 isAuthenticated: true,
                 user: payload
             };
+        case 'REGISTER_SUCCESS':
+            return state;
         default:
             return state;
     }

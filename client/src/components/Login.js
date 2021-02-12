@@ -11,8 +11,6 @@ const Login = ({login, isAuthenticated}) => {
         password: ''
     });
 
-    debugger;
-
     if(isAuthenticated) {
         return <Redirect to="/home" />;
     }

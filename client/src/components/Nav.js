@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export const Nav = ({ isAuthenticated, user }) => {
+    console.log(user);
+
     return (
         <div>
-            NavBar Components
             {!isAuthenticated ? (
                 <div>
                     <Link to="/">Home</Link>
@@ -14,14 +15,17 @@ export const Nav = ({ isAuthenticated, user }) => {
                     <Link to="/register">Register</Link>
                 </div>
             ) : (
-                    <p>Welcome {user !== null ? user.name: "User"}</p>
+                    <div>
+                        <Link to="/home">Home</Link>
+                        <p>Welcome {user !== null && user !== undefined ? user.name : "User"}</p>
+                    </div>
                 )}
         </div>
     )
 }
 
 Nav.prototype = {
-    isAuthenticated : PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
     user: PropTypes.object
 }
 
