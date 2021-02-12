@@ -12,7 +12,7 @@ router.post('/login', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: erros.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
 
     const { email, password } = req.body;
@@ -27,6 +27,8 @@ router.post('/login', [
 
             if (!isMatch) {
                 return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
+            } else if(!user.isactive) {
+                return res.status(400).json({ errors: [{ msg: 'User Blocked' }] });
             } else {
                 const payload = {
                     user: {
@@ -79,13 +81,14 @@ router.post('/register', [
             name,
             email,
             password,
-            isactive: true
+            userrole: "user",
+            isactive: true,
         });
 
         const salt = await bcrypt.genSalt(10);
 
         user.password = await bcrypt.hash(password, salt);
-
+        
         await user.save();
 
         const payload = {

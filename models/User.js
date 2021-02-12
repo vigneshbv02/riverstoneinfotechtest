@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
     isactive: {
         type: 'boolean',
         required: true
+    },
+    userrole: {
+        type: 'string',
+        required: true
     }
 });
 
