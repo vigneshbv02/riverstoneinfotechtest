@@ -5,6 +5,17 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const auth = require('../middleware/auth');
+
+router.get('/', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 router.post('/login', [
     check("email", "Please include a valid email").isEmail(),
@@ -27,7 +38,7 @@ router.post('/login', [
 
             if (!isMatch) {
                 return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
-            } else if(!user.isactive) {
+            } else if (!user.isactive) {
                 return res.status(400).json({ errors: [{ msg: 'User Blocked' }] });
             } else {
                 const payload = {
@@ -88,7 +99,7 @@ router.post('/register', [
         const salt = await bcrypt.genSalt(10);
 
         user.password = await bcrypt.hash(password, salt);
-        
+
         await user.save();
 
         const payload = {
