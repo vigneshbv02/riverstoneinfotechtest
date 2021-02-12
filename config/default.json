@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://Vignesh_Admin:AuCND1Uz3nW9jBd7@myprojects.atikr.azure.mongodb.net/riverstoneinfotech?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
+}
