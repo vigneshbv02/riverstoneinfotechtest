@@ -12,12 +12,16 @@ router.post('/activateUser',auth, [
     check("userStatus", "Please provide User Status").exists(),
 ] , async function(req, res) {
     try {
-        const {userid, userStatus} = req.body;
+        console.log(req.body);
+
+        const {userId, userStatus} = req.body;
 
         let user = await User.findOneAndUpdate(
-            {_id: userid},
+            {_id: userId},
             {$set : {isactive: userStatus === 'false' ? false : true }}
         )
+
+        console.log(user);
 
         res.json(user);
         
