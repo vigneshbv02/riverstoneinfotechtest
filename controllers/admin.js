@@ -12,7 +12,6 @@ router.post('/activateUser',auth, [
     check("userStatus", "Please provide User Status").exists(),
 ] , async function(req, res) {
     try {
-        console.log(req.body);
 
         const {userId, userStatus} = req.body;
 
@@ -20,8 +19,6 @@ router.post('/activateUser',auth, [
             {_id: userId},
             {$set : {isactive: userStatus === 'false' ? false : true }}
         )
-
-        console.log(user);
 
         res.json(user);
         

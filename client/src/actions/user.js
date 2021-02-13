@@ -23,8 +23,6 @@ export const login = (email, password) => async dispatch => {
 
         const res = await api.post("/user/login", body);
 
-        console.log(res);
-
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
 
         setAuthToken(localStorage.token);

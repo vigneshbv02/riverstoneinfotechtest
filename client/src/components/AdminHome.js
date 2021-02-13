@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { getAllUsers } from '../actions/admin';
 import AdminUserPanel from "../components/AdminUserPanel";
 import store from "../utilites/store";
+import { Container, Paper } from "@material-ui/core";
 
 const AdminHome = ({ getAllUsers, isAuthenticated, user, AllUsers }) => {
 
@@ -22,13 +23,16 @@ const AdminHome = ({ getAllUsers, isAuthenticated, user, AllUsers }) => {
         }
 
         return (
-            <div>
-                Welcome to Admin Home from
-                <button onClick={LogOut}>LogOut</button>
-                {AllUsers.map((userData) => (
-                    <AdminUserPanel userData={userData} getAllUsers />
-                ))}
-            </div>
+            <Container>
+                <Paper variant="outlined" style={{ margin: '20px', padding: '20px'}}>
+                    <h2 style={{ textAlign: 'center' }}> Welcome to Admin Home </h2>
+                    <div style={{display: 'flex', flexDirection: 'row', margin: '20px'}}>
+                        {AllUsers.map((userData) => (
+                            <AdminUserPanel userData={userData} key={userData._id} />
+                        ))}
+                    </div>
+                </Paper>
+            </Container>
         )
     } else {
         return <Redirect to="/" />

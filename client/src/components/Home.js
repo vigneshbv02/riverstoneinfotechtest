@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import store from '../utilites/store'
 import { Redirect } from "react-router-dom";
+import { Modal, Container, Paper } from "@material-ui/core";
 
 const Home = ({ user, isAuthenticated }) => {
 
@@ -10,16 +11,13 @@ const Home = ({ user, isAuthenticated }) => {
     } else if (user !== null && user !== undefined && user.userrole === "admin") {
         return <Redirect to="/adminhome" />
     } else {
-
-        const LogOut = (e) => {
-            store.dispatch({ type: 'LOGOUT' });
-        }
-
         return (
-            <div>
-                Welcome {user !== null ? user.name : "User"} {user !== null ? user.email : "User"}
-                <button onClick={LogOut}>LogOut</button>
-            </div>
+            <Container maxWidth="sm">
+                <Paper variant="outlined" style={{margin:'20px'}}>
+                    <h2 style={{textAlign:'center'}}> Welcome {user !== null ? user.name : "User"} </h2>
+                    <p style={{textAlign:'center'}}>  {user !== null ? user.email : "User"} </p>
+                </Paper>
+            </Container>
         )
     }
 }

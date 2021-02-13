@@ -4,7 +4,6 @@ import { setAlert } from './alert';
 export const getAllUsers = () => async dispatch => {
     try {
         const users = await api.post("/admin/getAllUsers");
-        console.log(users);
         dispatch({type: 'ALLUSERS_LOADED', payload: users.data});
         return users;
     } catch (err) {
@@ -21,7 +20,6 @@ export const getAllUsers = () => async dispatch => {
 
 export const updateUserStatus = (userId, userStatus) => async dispatch => {
     try {
-        console.log({userId, userStatus});
         const res = await api.post("/admin/activateUser", {userId: userId, userStatus: userStatus});
         console.log(res);
         getAllUsers();
